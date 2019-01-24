@@ -11,7 +11,7 @@ except:
     long_description = 'pg_simple is a simple wrapper for Python psycopg2 with connection pooling'
 
 setup(
-    name=pg_simple.__name__,
+    name='pg-simple',
     version=pg_simple.VERSION,
     packages=find_packages(),
     install_requires=['psycopg2'],

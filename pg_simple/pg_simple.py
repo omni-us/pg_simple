@@ -7,6 +7,7 @@ import logging
 import os
 
 from psycopg2.extras import DictCursor, NamedTupleCursor
+from psycopg2 import OperationalError
 
 import pg_simple.pool as pool
 
@@ -32,9 +33,8 @@ class PgSimple(object):
         try:
             self._connection = self._pool.get_conn()
             self._cursor = self._connection.cursor(cursor_factory=self._cursor_factory)
-        except Exception as e:
-            self._log_error('postgresql connection failed: ' + e.message)
-            raise
+        except OperationalError:
+            raise OperationalError
 
     def _debug_write(self, msg):
         if msg and self._log:
